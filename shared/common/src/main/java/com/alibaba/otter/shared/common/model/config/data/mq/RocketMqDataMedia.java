@@ -16,34 +16,16 @@
 
 package com.alibaba.otter.shared.common.model.config.data.mq;
 
-import com.alibaba.otter.shared.common.model.config.data.DataMediaSource;
+import com.alibaba.otter.shared.common.model.config.data.DataMedia;
 
 /**
- * RocketMQConnector对象的实现
+ * NapoliSender对象的实现
  * 
- * @author simon 2012-6-19 下午10:49:25
+ * @author simon 2012-6-19 下午10:49:08
  * @version 4.1.0
  */
-public class RocketMqMediaSource extends DataMediaSource {
+public class RocketMqDataMedia extends DataMedia<MqMediaSource> {
 
-    private static final long serialVersionUID = -1699317916850638143L;
+    private static final long serialVersionUID = 1347886915428919398L;
 
-    private String            groupName;
-    private String            namesrvAddr;
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
-
-    public String getNamesrvAddr() {
-        return namesrvAddr;
-    }
-
-    public void setNamesrvAddr(String namesrvAddr) {
-        this.namesrvAddr = namesrvAddr;
-    }
 }
