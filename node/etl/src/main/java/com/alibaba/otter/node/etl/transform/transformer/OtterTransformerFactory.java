@@ -165,7 +165,7 @@ public class OtterTransformerFactory {
         if (sourceDataMedia instanceof DbDataMedia && targetDataMedia instanceof DbDataMedia) {
             return rowDataTransformer;
         }
-
+        // todo Media 存储介质可以选择MQ作为目标存储介质
         throw new TransformException("no support translate for source " + sourceDataMedia.toString() + " to target "
                                      + targetDataMedia);
     }

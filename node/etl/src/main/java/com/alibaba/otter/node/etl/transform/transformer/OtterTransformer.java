@@ -23,6 +23,6 @@ package com.alibaba.otter.node.etl.transform.transformer;
  * @version 4.0.0
  */
 public interface OtterTransformer<S, T> {
-
+    // todo 编写 数据转换 处理子类
     public S transform(T data, OtterTransformerContext context);
 }
