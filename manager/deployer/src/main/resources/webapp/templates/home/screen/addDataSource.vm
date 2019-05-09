@@ -40,7 +40,8 @@ $control.setTemplate("home:navigation.vm")
         <td>
             <select id="sourceType" name="$dataMediaSourceGroup.type.key" onchange="changeform();" >
             <option value="MYSQL">MySQL</option>
-            <option value="ORACLE">Oracle</option>
+                <option value="ORACLE">Oracle</option>
+                <option value="ROCKETMQ">RocketMQ</option>
 			</select><span class="red">*</span>
         </td>
       </tr>
