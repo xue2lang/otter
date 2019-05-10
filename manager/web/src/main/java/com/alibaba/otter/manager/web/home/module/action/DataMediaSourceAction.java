@@ -32,6 +32,7 @@ import com.alibaba.otter.manager.web.common.WebConstant;
 import com.alibaba.otter.shared.common.model.config.data.DataMediaSource;
 import com.alibaba.otter.shared.common.model.config.data.db.DbMediaSource;
 import com.alibaba.otter.shared.common.model.config.data.mq.MqMediaSource;
+import com.alibaba.otter.shared.common.model.config.data.mq.RocketMqMediaSource;
 
 public class DataMediaSourceAction extends AbstractAction {
 
@@ -39,11 +40,11 @@ public class DataMediaSourceAction extends AbstractAction {
     private DataMediaSourceService dataMediaSourceService;
 
     @Resource(name = "dataMediaService")
-    private DataMediaService       dataMediaService;
+    private DataMediaService dataMediaService;
 
     /**
      * 添加Channel
-     * 
+     *
      * @param channelInfo
      * @param channelParameterInfo
      * @throws Exception
@@ -74,6 +75,16 @@ public class DataMediaSourceAction extends AbstractAction {
 
             try {
                 dataMediaSourceService.create(mqMediaSource);
+            } catch (RepeatConfigureException rce) {
+                err.setMessage("invalidDataMediaSource");
+                return;
+            }
+        } else if (dataMediaSource.getType().isRocketMQ()) {
+            RocketMqMediaSource rocketMqMediaSource = new RocketMqMediaSource();
+            dataMediaSourceInfo.setProperties(rocketMqMediaSource);
+            rocketMqMediaSource.setNamesrvAddr(dataMediaSourceInfo.getField("url").getStringValue());
+            try {
+                dataMediaSourceService.create(rocketMqMediaSource);
             } catch (RepeatConfigureException rce) {
                 err.setMessage("invalidDataMediaSource");
                 return;
