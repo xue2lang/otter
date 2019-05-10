@@ -83,6 +83,7 @@ public class DataMediaSourceAction extends AbstractAction {
             RocketMqMediaSource rocketMqMediaSource = new RocketMqMediaSource();
             dataMediaSourceInfo.setProperties(rocketMqMediaSource);
             rocketMqMediaSource.setNamesrvAddr(dataMediaSourceInfo.getField("url").getStringValue());
+            rocketMqMediaSource.setGroupName(dataMediaSourceInfo.getField("groupName").getStringValue());
             try {
                 dataMediaSourceService.create(rocketMqMediaSource);
             } catch (RepeatConfigureException rce) {

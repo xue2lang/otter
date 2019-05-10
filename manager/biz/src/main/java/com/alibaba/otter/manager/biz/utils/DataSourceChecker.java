@@ -111,19 +111,23 @@ public class DataSourceChecker {
 
 
     @SuppressWarnings("resource")
-    public String check(String url, String username, String password, String encode, String sourceType) {
+    public String check(String url, String username, String password, String encode, String sourceType, String groupName) {
         if ("MYSQL".equalsIgnoreCase(sourceType) || "ORACLE".equalsIgnoreCase(sourceType)) {
             return checkDB(url, username, password, encode, sourceType);
         } else if ("RocketMQ".equalsIgnoreCase(sourceType)) {
-            return checkMQ(url, username, password, encode, sourceType);
+            return checkMQ(url, username, password, encode, sourceType, groupName);
         } else {
             return DATABASE_SUCCESS;
         }
     }
 
 
-    public String checkMQ(String url, String username, String password, String encode, String sourceType) {
-        return DATABASE_SUCCESS;
+    public String checkMQ(String url, String username, String password, String encode, String sourceType, String groupName) {
+        if (StringUtils.isEmpty(url) || StringUtils.isEmpty(groupName)) {
+            return DATABASE_FAIL;
+        } else {
+            return DATABASE_SUCCESS;
+        }
     }
 
     public String checkDB(String url, String username, String password, String encode, String sourceType) {

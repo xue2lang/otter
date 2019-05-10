@@ -39,10 +39,10 @@ $control.setTemplate("home:navigation.vm")
         <th>类型：</th>
         <td>
             <select id="sourceType" name="$dataMediaSourceGroup.type.key" onchange="changeform();" >
-            <option value="MYSQL">MySQL</option>
+                <option value="MYSQL">MySQL</option>
                 <option value="ORACLE">Oracle</option>
                 <option value="ROCKETMQ">RocketMQ</option>
-			</select><span class="red">*</span>
+            </select><span class="red">*</span>
         </td>
       </tr>
       <tr> 
@@ -69,6 +69,14 @@ $control.setTemplate("home:navigation.vm")
 			<span class="red">#addDataSourceMessage ($dataMediaSourceGroup.url)</span>
 		</td>
       </tr>
+        <tr id="group_name_tr" style="display: none;">
+            <th>GroupName：</th>
+            <td>
+                <input id="sourceGroupName" name="$dataMediaSourceGroup.groupName.key" value="$!dataMediaSourceGroup.groupName.value" type="text" class="setting_input"/><span class="red">*</span>
+                <br />
+                <span class="red">#addDataSourceMessage ($dataMediaSourceGroup.groupName)</span>
+            </td>
+        </tr>
 	  #**
 	  <tr> 
         <th>StorePath：</th>
