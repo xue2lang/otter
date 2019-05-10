@@ -16,6 +16,7 @@
 
 package com.alibaba.otter.node.deployer;
 
+import com.alibaba.otter.node.etl.OtterConstants;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ import com.alibaba.otter.node.etl.OtterController;
 
 /**
  * load otter task to sync data with some pipeline.
- * 
+ *
  * @author xiaoqing.zhouxq 2011-8-29 上午10:02:04
  */
 public class OtterLauncher {
@@ -33,6 +34,7 @@ public class OtterLauncher {
     private static final Logger logger = LoggerFactory.getLogger(OtterLauncher.class);
 
     public static void main(String[] args) throws Throwable {
+        System.setProperty(OtterConstants.NID_NAME, "1");
         // 启动dragoon client
         // startDragoon();
         // logger.info("INFO ## the dragoon is start now ......");
@@ -48,7 +50,7 @@ public class OtterLauncher {
                         controller.stop();
                     } catch (Throwable e) {
                         logger.warn("WARN ##something goes wrong when stopping Otter Server:\n{}",
-                            ExceptionUtils.getFullStackTrace(e));
+                                ExceptionUtils.getFullStackTrace(e));
                     } finally {
                         logger.info("INFO ## otter server is down.");
                     }
@@ -57,7 +59,7 @@ public class OtterLauncher {
             });
         } catch (Throwable e) {
             logger.error("ERROR ## Something goes wrong when starting up the Otter Server:\n{}",
-                ExceptionUtils.getFullStackTrace(e));
+                    ExceptionUtils.getFullStackTrace(e));
             System.exit(0);
         }
     }
