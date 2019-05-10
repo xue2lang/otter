@@ -20,22 +20,42 @@ package com.alibaba.otter.shared.common.model.config.data;
  * @author jianghang 2011-9-2 上午11:36:21
  */
 public enum DataMediaType {
-    /** mysql DB */
+    /**
+     * mysql DB
+     */
     MYSQL,
-    /** oracle DB */
+    /**
+     * oracle DB
+     */
     ORACLE,
-    /** cobar */
+    /**
+     * cobar
+     */
     COBAR,
-    /** tddl */
+    /**
+     * tddl
+     */
     TDDL,
-    /** cache */
+    /**
+     * cache
+     */
     MEMCACHE,
-    /** mq */
+    /**
+     * mq
+     */
     MQ,
-    /** napoli */
+    /**
+     * napoli
+     */
     NAPOLI,
-    /** diamond push for us */
-    DIAMOND_PUSH;
+    /**
+     * diamond push for us
+     */
+    DIAMOND_PUSH,
+    /**
+     * RocketMQ
+     */
+    ROCKETMQ;
 
     public boolean isMysql() {
         return this == DataMediaType.MYSQL;
@@ -67,5 +87,9 @@ public enum DataMediaType {
 
     public boolean isDiamondPush() {
         return this == DataMediaType.DIAMOND_PUSH;
+    }
+
+    public boolean isRocketMQ() {
+        return this == DataMediaType.ROCKETMQ;
     }
 }

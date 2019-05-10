@@ -111,7 +111,10 @@ public class MqLoadAction implements InitializingBean, DisposableBean {
             // 设置media source时，只需要取第一节点的source即可
             context.setDataMediaSource(ConfigHelper.findDataMedia(context.getPipeline(), datas.get(0).getTableId())
                 .getSource());
+
+
             interceptor.prepare(context);
+
             // 执行重复录入数据过滤
             datas = context.getPrepareDatas();
             // 处理下ddl语句，ddl/dml语句不可能是在同一个batch中，由canal进行控制
