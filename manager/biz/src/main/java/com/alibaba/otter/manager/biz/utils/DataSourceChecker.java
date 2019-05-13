@@ -218,7 +218,23 @@ public class DataSourceChecker {
         return DATABASE_SUCCESS;
     }
 
+
     public String checkMap(String namespace, String name, Long dataSourceId) {
+        DataMediaSource source = dataMediaSourceService.findById(dataSourceId);
+        if (source.getType().isMysql() || source.getType().isOracle()) {
+            return checkMapDB(namespace, name, dataSourceId);
+        } else if (source.getType().isRocketMQ()) {
+            return checkMapMQ(namespace, name, dataSourceId);
+        } else {
+            return TABLE_SUCCESS;
+        }
+    }
+
+    public String checkMapMQ(String namespace, String name, Long dataSourceId) {
+        return TABLE_SUCCESS;
+    }
+
+    public String checkMapDB(String namespace, String name, Long dataSourceId) {
         Connection conn = null;
         Statement stmt = null;
         DataMediaSource source = dataMediaSourceService.findById(dataSourceId);
