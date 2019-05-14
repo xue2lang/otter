@@ -29,5 +29,11 @@
 			<artifactId>jtester</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba.otter</groupId>
+			<artifactId>canal.protocol</artifactId>
+			<version>${otter_canal_version}</version>
+		</dependency>
 	</dependencies>
 </project>

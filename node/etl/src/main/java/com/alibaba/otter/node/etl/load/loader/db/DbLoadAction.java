@@ -363,11 +363,12 @@ public class DbLoadAction implements InitializingBean, DisposableBean {
             try {
                 sender.start();
                 sender.send(target.getNamespace(), target.getName(), "", JSONObject.toJSONString(eventData));
-                sender.shutdown();
                 context.getProcessedDatas().add(eventData);
             } catch (MQClientException e) {
                 e.printStackTrace();
                 context.getFailedDatas().add(eventData);
+            } finally {
+                sender.shutdown();
             }
         }
     }
