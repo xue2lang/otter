@@ -32,13 +32,18 @@
 <p>语言： 纯java开发</p>
 <p>定位： 基于数据库增量日志解析，准实时同步到本机房或异地机房的mysql/oracle数据库. 一个分布式数据库同步系统</p>
 <p> </p>
+
+
 <h1>项目改造</h1>
+
+<p><img  src="client/springboot-otter.jpg"  alt=""></p>
+
 <p>
     基于Otter master分支最新提交，增加client工程，目标是为公司内springboot项目通过HTTP调用或者Dubbo调用操作Otter manager，实现任务创建和启动停止等
 </p>
 <strong>改造内容：</strong>
 <ol>
-<li>新增client工程</li>
+<li>新增springboot client工程</li>
 <li>jdk版本升级为1.8</li>
 <li>使用springboot 2.3.2.RELEASE，大家可通过RESTful接口调用 Otter manager模块</li>
 </ol>
