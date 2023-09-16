@@ -16,36 +16,30 @@
 
 package com.alibaba.otter.shared.communication.model.config;
 
-import com.alibaba.otter.shared.communication.core.model.EventType;
+import com.alibaba.otter.shared.common.model.config.channel.Channel;
+import com.alibaba.otter.shared.communication.core.model.Event;
 
 /**
- * config交互的事件类型
- * 
+ * 配置查询的事件
+ *
  * @author jianghang
  */
-public enum ConfigEventType implements EventType {
+public class RemoveChannelEvent extends Event {
 
-    /** 查询nid对应的任务列表 */
-    findTask,
-    /** 根据nid查询Node对象 */
-    findNode,
-    /** 根据id查询对应的channel对象 */
-    findChannel,
-    /** manager通知task channel的变化 */
-    notifyChannel,
-    /** 查询media信息 */
-    findMedia,
-    /** 通知medai信息 */
-    notifyMedia,
+    private static final long serialVersionUID = 476657754177940448L;
 
-    // save or update channel
-    saveChannel,
-    removeChannel,
+    private Long channelId;
 
-    findPipeline,
-    savePipeline,
-    removePipeline,
+    public RemoveChannelEvent() {
+        super(ConfigEventType.removeChannel);
+    }
 
-    listNode;
+    public Long getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(Long channelId) {
+        this.channelId = channelId;
+    }
 
 }

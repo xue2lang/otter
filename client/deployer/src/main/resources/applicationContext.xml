@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:lang="http://www.springframework.org/schema/lang" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+           http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.0.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+       default-autowire="byName">
+
+    <!--	<bean id="endpoint" class="com.alibaba.otter.client.communication.AdapterCommunicationEndpoint">-->
+    <!--		<property name="payload" value="${otter.communication.payload:8388608}" />-->
+    <!--	</bean>-->
+    <bean id="communicationClient" class="com.alibaba.otter.shared.communication.core.impl.DefaultCommunicationClientImpl" init-method="initial" destroy-method="destory">
+        <property name="poolSize" value="${otter.communication.pool.size:10}" />
+        <property name="retry" value="1" />
+        <property name="factory">
+            <bean class="com.alibaba.otter.shared.communication.core.impl.dubbo.DubboCommunicationConnectionFactory">
+                <property name="payload" value="${otter.communication.payload:8388608}" />
+            </bean>
+        </property>
+        <property name="discard" value="true" />
+    </bean>
+
+    <!--Core communication -->
+    <bean id="coreCommunicationClient" class="com.alibaba.otter.client.communication.CoreCommunicationClient" >
+        <property name="delegate" ref="communicationClient" />
+        <property name="managerAddress" value="${otter.manager.address:127.0.0.1:1099}" />
+    </bean>
+    <!--	<bean id="adapterCommunicationEndpoint" class="com.alibaba.otter.client.communication.AdapterCommunicationEndpoint" >-->
+    <!--		<property name="endpoint" ref="endpoint" />-->
+    <!--	</bean>-->
+</beans>

@@ -16,12 +16,11 @@
 
 package com.alibaba.otter.manager.biz.remote.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import com.alibaba.otter.manager.biz.config.pipeline.PipelineService;
+import com.alibaba.otter.shared.common.model.config.channel.ChannelParameter;
+import com.alibaba.otter.shared.communication.model.config.*;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -42,16 +41,12 @@ import com.alibaba.otter.shared.common.model.config.pipeline.Pipeline;
 import com.alibaba.otter.shared.common.utils.JsonUtils;
 import com.alibaba.otter.shared.communication.core.CommunicationClient;
 import com.alibaba.otter.shared.communication.core.CommunicationRegistry;
-import com.alibaba.otter.shared.communication.model.config.ConfigEventType;
-import com.alibaba.otter.shared.communication.model.config.FindChannelEvent;
-import com.alibaba.otter.shared.communication.model.config.FindMediaEvent;
-import com.alibaba.otter.shared.communication.model.config.FindNodeEvent;
-import com.alibaba.otter.shared.communication.model.config.FindTaskEvent;
-import com.alibaba.otter.shared.communication.model.config.NotifyChannelEvent;
+
+import javax.annotation.Resource;
 
 /**
  * Config的remote接口处理
- * 
+ *
  * @author jianghang 2011-10-21 下午02:53:53
  * @version 4.0.0
  */
@@ -59,16 +54,18 @@ public class ConfigRemoteServiceImpl implements ConfigRemoteService {
 
     private static final Logger logger = LoggerFactory.getLogger(ConfigRemoteServiceImpl.class);
     private CommunicationClient communicationClient;
-    private ChannelService      channelService;
-    private NodeService         nodeService;
-    private DataMatrixService   dataMatrixService;
+    private ChannelService channelService;
+    private NodeService nodeService;
+    private DataMatrixService dataMatrixService;
+    private PipelineService pipelineService;
 
-    public ConfigRemoteServiceImpl(){
+    public ConfigRemoteServiceImpl() {
         // 注册一下事件处理
         CommunicationRegistry.regist(ConfigEventType.findChannel, this);
         CommunicationRegistry.regist(ConfigEventType.findNode, this);
         CommunicationRegistry.regist(ConfigEventType.findTask, this);
         CommunicationRegistry.regist(ConfigEventType.findMedia, this);
+        CommunicationRegistry.regist(ConfigEventType.findPipeline, this);
     }
 
     public boolean notifyChannel(final Channel channel) {
@@ -118,7 +115,7 @@ public class ConfigRemoteServiceImpl implements ConfigRemoteService {
                 String[] addrs = addrsList.toArray(new String[addrsList.size()]);
                 List<Boolean> result = (List<Boolean>) communicationClient.call(addrs, event); // 推送配置
                 logger.info("## notifyChannel to [{}] channel[{}] result[{}]",
-                    new Object[] { ArrayUtils.toString(addrs), channel.toString(), result });
+                        new Object[]{ArrayUtils.toString(addrs), channel.toString(), result});
 
                 boolean flag = true;
                 for (Boolean f : result) {
@@ -171,6 +168,21 @@ public class ConfigRemoteServiceImpl implements ConfigRemoteService {
         return JsonUtils.marshalToString(matrix);
     }
 
+    @Override
+    public List<Pipeline> onFindPipeline(FindPipelineEvent event) {
+        Assert.notNull(event);
+        Long channelId = event.getChannelId();
+        Long pipelineId = event.getPipelineId();
+        Pipeline pipeline;
+        if (channelId != null) {
+            return pipelineService.listByChannelIds(channelId);
+        } else {
+            Assert.notNull(pipelineId);
+            pipeline = pipelineService.findById(pipelineId);
+            return Collections.singletonList(pipeline);
+        }
+    }
+
     // =============== setter / getter ===================
 
     public void setCommunicationClient(CommunicationClient communicationClient) {
@@ -189,4 +201,7 @@ public class ConfigRemoteServiceImpl implements ConfigRemoteService {
         this.dataMatrixService = dataMatrixService;
     }
 
+    public void setPipelineService(PipelineService pipelineService) {
+        this.pipelineService = pipelineService;
+    }
 }

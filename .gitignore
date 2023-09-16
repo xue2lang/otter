@@ -16,3 +16,16 @@ package-info.java
 .DS_Store
 *.tar.gz
 docker/data/
+
+# 忽略根目录下的sh文件
+aria2-1.36.0/
+clear.sh
+copy.sh
+delete_manager.sh
+find_port.sh
+open.sh
+open_manager.sh
+package.sh
+run_manager.sh
+run_node.sh
+stop_all.sh
