@@ -61,8 +61,8 @@ public class ChannelAction extends AbstractAction {
                                                                                                                    throws Exception {
         Channel channel = new Channel();
         ChannelParameter parameter = new ChannelParameter();
-        channelInfo.setProperties(channel);
-        channelParameterInfo.setProperties(parameter);
+        channelInfo.setProperties(channel);//channelInfo把参数设置到channel
+        channelParameterInfo.setProperties(parameter);//channelParameterInfo把参数设置到parameter
         // 新建Channel默认关闭该状态
         channel.setStatus(ChannelStatus.STOP);
         channel.setParameters(parameter);

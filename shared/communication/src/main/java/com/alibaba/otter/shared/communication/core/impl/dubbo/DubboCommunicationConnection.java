@@ -41,7 +41,7 @@ public class DubboCommunicationConnection implements CommunicationConnection {
     }
 
     public Object call(Event event) {
-        // 调用rmi传递数据到目标server上
+        // 调用dubbo传递数据到目标server上
         return endpoint.acceptEvent(event);
     }
 

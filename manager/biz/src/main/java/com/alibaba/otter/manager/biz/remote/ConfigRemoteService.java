@@ -16,14 +16,12 @@
 
 package com.alibaba.otter.manager.biz.remote;
 
-import java.util.List;
-
 import com.alibaba.otter.shared.common.model.config.channel.Channel;
 import com.alibaba.otter.shared.common.model.config.node.Node;
-import com.alibaba.otter.shared.communication.model.config.FindChannelEvent;
-import com.alibaba.otter.shared.communication.model.config.FindMediaEvent;
-import com.alibaba.otter.shared.communication.model.config.FindNodeEvent;
-import com.alibaba.otter.shared.communication.model.config.FindTaskEvent;
+import com.alibaba.otter.shared.common.model.config.pipeline.Pipeline;
+import com.alibaba.otter.shared.communication.model.config.*;
+
+import java.util.List;
 
 /**
  * 针对manager config对象的远程服务接口定义
@@ -56,4 +54,9 @@ public interface ConfigRemoteService {
      * 返回media信息
      */
     public String onFindMedia(FindMediaEvent event);
+
+    /**
+     * 接收客户端的查询pipeline请求
+     */
+    public List<Pipeline> onFindPipeline(FindPipelineEvent event);
 }

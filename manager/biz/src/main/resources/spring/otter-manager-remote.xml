@@ -59,6 +59,13 @@
 	<bean id="configRemoteServiceTarget" class="com.alibaba.otter.manager.biz.remote.impl.ConfigRemoteServiceImpl"  scope="singleton">
 		<property name="communicationClient" ref="communicationClient" />
 	</bean>
+
+	<bean id="taskConfigRemoteService" parent="baseRemoteService" scope="singleton">
+		<property name="targetName" value="taskConfigRemoteServiceTarget"/>
+	</bean>
+	<bean id="taskConfigRemoteServiceTarget" class="com.alibaba.otter.manager.biz.rpc.impl.TaskConfigRemoteServiceImpl" scope="singleton">
+		<property name="communicationClient" ref="communicationClient"/>
+	</bean>
 	
 	<bean id="statsRemoteService" parent="baseRemoteService" scope="singleton">
 		<property name="targetName" value="statsRemoteServiceTarget"/>

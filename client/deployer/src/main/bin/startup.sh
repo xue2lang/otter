@@ -10,7 +10,7 @@ case "`uname`" in
 		;;
 esac
 base=${bin_abs_path}/..
-otter_conf=$base/conf/otter.properties
+otter_conf=$base/conf/application.yml
 logback_configurationFile=$base/conf/logback.xml
 
 export LANG=en_US.UTF-8
@@ -82,7 +82,7 @@ else
 fi
 
 JAVA_OPTS=" $JAVA_OPTS -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8"
-OTTER_OPTS="-DappName=otter-manager -Ddubbo.application.logger=slf4j -Dlogback.configurationFile=$logback_configurationFile -Dotter.conf=$otter_conf"
+OTTER_OPTS="-DappName=otter-client -Ddubbo.application.logger=slf4j -Dlogback.configurationFile=$logback_configurationFile -Dotter.conf=$otter_conf"
 
 if [ -e $otter_conf -a -e $logback_configurationFile ]
 then 
@@ -98,7 +98,7 @@ then
 	echo LOG CONFIGURATION : $logback_configurationFile
 	echo otter conf : $otter_conf 
 	echo CLASSPATH :$CLASSPATH
-	$JAVA $JAVA_OPTS $JAVA_DEBUG_OPT $OTTER_OPTS -classpath .:$CLASSPATH com.alibaba.otter.manager.deployer.OtterManagerLauncher 1>>$base/logs/manager.log 2>&1 &
+	$JAVA $JAVA_OPTS $JAVA_DEBUG_OPT $OTTER_OPTS -classpath .:$CLASSPATH com.alibaba.otter.client.OtterClientApplication 1>>$base/logs/manager.log 2>&1 &
 	echo $! > $base/bin/otter.pid 
 	
 	echo "cd to $current_path for continue"
