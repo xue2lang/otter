@@ -26,6 +26,7 @@ import com.alibaba.otter.shared.common.model.config.ConfigHelper;
 import com.alibaba.otter.shared.common.model.config.data.DataMedia;
 import com.alibaba.otter.shared.common.model.config.data.DataMediaPair;
 import com.alibaba.otter.shared.common.model.config.data.db.DbDataMedia;
+import com.alibaba.otter.shared.common.model.config.data.mq.RocketMqDataMedia;
 import com.alibaba.otter.shared.common.model.config.pipeline.Pipeline;
 import com.alibaba.otter.shared.etl.model.BatchObject;
 import com.alibaba.otter.shared.etl.model.EventData;
@@ -36,19 +37,20 @@ import com.alibaba.otter.shared.etl.model.RowBatch;
 
 /**
  * 数据对象转化工厂
- * 
+ *
  * @author jianghang 2011-10-27 下午06:29:02
  * @version 4.0.0
  */
 public class OtterTransformerFactory {
 
     private ConfigClientService configClientService;
-    private RowDataTransformer  rowDataTransformer;
+    private RowDataTransformer rowDataTransformer;
     private FileDataTransformer fileDataTransformer;
+    private RocketMQTransformer rocketMQTransformer;
 
     /**
      * 将一种源数据进行转化，最后得到的结果会根据DataMediaPair中定义的目标对象生成不同的数据对象 <br/>
-     * 
+     *
      * <pre>
      * 返回对象格式：Map
      * key : Class对象，代表生成的目标数据对象
@@ -109,7 +111,7 @@ public class OtterTransformerFactory {
                 }
 
                 Object item = fileDataTransformer.transform(fileData, new OtterTransformerContext(identity, pair,
-                                                                                                  pipeline));
+                        pipeline));
                 if (item == null) {
                     continue;
                 }
@@ -164,10 +166,12 @@ public class OtterTransformerFactory {
     private OtterTransformer lookup(DataMedia sourceDataMedia, DataMedia targetDataMedia) {
         if (sourceDataMedia instanceof DbDataMedia && targetDataMedia instanceof DbDataMedia) {
             return rowDataTransformer;
+        } else if (sourceDataMedia instanceof DbDataMedia && targetDataMedia instanceof RocketMqDataMedia) {
+            return rocketMQTransformer;
         }
-
+        // todo Media 存储介质可以选择MQ作为目标存储介质
         throw new TransformException("no support translate for source " + sourceDataMedia.toString() + " to target "
-                                     + targetDataMedia);
+                + targetDataMedia);
     }
 
     private Identity translateIdentity(Identity identity) {
@@ -192,4 +196,7 @@ public class OtterTransformerFactory {
         this.fileDataTransformer = fileDataTransformer;
     }
 
+    public void setRocketMQTransformer(RocketMQTransformer rocketMQTransformer) {
+        this.rocketMQTransformer = rocketMQTransformer;
+    }
 }

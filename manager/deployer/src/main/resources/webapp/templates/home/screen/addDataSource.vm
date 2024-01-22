@@ -39,9 +39,10 @@ $control.setTemplate("home:navigation.vm")
         <th>类型：</th>
         <td>
             <select id="sourceType" name="$dataMediaSourceGroup.type.key" onchange="changeform();" >
-            <option value="MYSQL">MySQL</option>
-            <option value="ORACLE">Oracle</option>
-			</select><span class="red">*</span>
+                <option value="MYSQL">MySQL</option>
+                <option value="ORACLE">Oracle</option>
+                <option value="ROCKETMQ">RocketMQ</option>
+            </select><span class="red">*</span>
         </td>
       </tr>
       <tr> 
@@ -68,6 +69,14 @@ $control.setTemplate("home:navigation.vm")
 			<span class="red">#addDataSourceMessage ($dataMediaSourceGroup.url)</span>
 		</td>
       </tr>
+        <tr id="group_name_tr" style="display: none;">
+            <th>GroupName：</th>
+            <td>
+                <input id="sourceGroupName" name="$dataMediaSourceGroup.groupName.key" value="$!dataMediaSourceGroup.groupName.value" type="text" class="setting_input"/><span class="red">*</span>
+                <br />
+                <span class="red">#addDataSourceMessage ($dataMediaSourceGroup.groupName)</span>
+            </td>
+        </tr>
 	  #**
 	  <tr> 
         <th>StorePath：</th>
@@ -100,7 +109,8 @@ $control.setTemplate("home:navigation.vm")
         <td>
 			mysql例子: jdbc:mysql://10.20.144.15:3306<br/>
 			oracle例子 : jdbc:oracle:thin:@10.20.144.29:1521:OINTEST<br/>
-			media例子 : jdbc:mysql://groupKey=key (更改 key)
+			media例子 : jdbc:mysql://groupKey=key (更改 key)<br/>
+            RocketMQ例子 : 10.20.144.15:9876
 		</td>
       </tr>
       

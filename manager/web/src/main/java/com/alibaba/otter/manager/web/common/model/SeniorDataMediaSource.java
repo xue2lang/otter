@@ -29,7 +29,16 @@ public class SeniorDataMediaSource extends DbMediaSource {
     private static final long serialVersionUID = 3876613625471584350L;
     private boolean           used;
     private String            storePath;
+    private String            groupName;
     private List<DataMedia>   dataMedias;
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
 
     public boolean isUsed() {
         return used;

@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-package com.alibaba.otter.node.etl.transform.transformer;
+package com.alibaba.otter.shared.common.model.config.data.mq;
+
+import com.alibaba.otter.shared.common.model.config.data.DataMedia;
 
 /**
- * 数据提取过程，T
+ * NapoliSender对象的实现
  * 
- * @author jianghang 2011-10-27 下午04:04:24
- * @version 4.0.0
+ * @author simon 2012-6-19 下午10:49:08
+ * @version 4.1.0
  */
-public interface OtterTransformer<S, T> {
-    // todo 编写 数据转换 处理子类
-    public S transform(T data, OtterTransformerContext context);
+public class RocketMqDataMedia extends DataMedia<MqMediaSource> {
+
+    private static final long serialVersionUID = 1347886915428919398L;
+
 }

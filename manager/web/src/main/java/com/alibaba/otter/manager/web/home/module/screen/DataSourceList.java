@@ -33,6 +33,7 @@ import com.alibaba.otter.shared.common.model.config.data.DataMedia;
 import com.alibaba.otter.shared.common.model.config.data.DataMediaSource;
 import com.alibaba.otter.shared.common.model.config.data.db.DbMediaSource;
 import com.alibaba.otter.shared.common.model.config.data.mq.MqMediaSource;
+import com.alibaba.otter.shared.common.model.config.data.mq.RocketMqMediaSource;
 
 public class DataSourceList {
 
@@ -40,10 +41,10 @@ public class DataSourceList {
     private DataMediaSourceService dataMediaSourceService;
 
     @Resource(name = "dataMediaService")
-    private DataMediaService       dataMediaService;
+    private DataMediaService dataMediaService;
 
     public void execute(@Param("pageIndex") int pageIndex, @Param("searchKey") String searchKey, Context context)
-                                                                                                                 throws Exception {
+            throws Exception {
         @SuppressWarnings("unchecked")
         Map<String, Object> condition = new HashMap<String, Object>();
         if ("请输入关键字(目前支持DataSource的ID、名字搜索)".equals(searchKey)) {
@@ -77,6 +78,8 @@ public class DataSourceList {
             } else if (dataMediaSource instanceof MqMediaSource) {
                 seniorDataMediaSource.setUrl(((MqMediaSource) dataMediaSource).getUrl());
                 seniorDataMediaSource.setStorePath(((MqMediaSource) dataMediaSource).getStorePath());
+            } else if (dataMediaSource instanceof RocketMqMediaSource) {
+                seniorDataMediaSource.setUrl(((RocketMqMediaSource) dataMediaSource).getNamesrvAddr());
             }
             List<DataMedia> dataMedia = dataMediaService.listByDataMediaSourceId(dataMediaSource.getId());
             seniorDataMediaSource.setDataMedias(dataMedia);

@@ -18,8 +18,11 @@ package com.alibaba.otter.shared.etl.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import com.alibaba.otter.canal.protocol.CanalEntry;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import com.alibaba.otter.shared.common.model.config.channel.ChannelParameter.SyncConsistency;
@@ -115,6 +118,17 @@ public class EventData implements ObjectData, Serializable {
      * 生成sql是否忽略schema,比如针对tddl/drds,需要忽略schema
      */
     private boolean           withoutSchema    = false;
+
+
+    private List<CanalEntry.Column> beforeColumns;
+    private List<CanalEntry.Column> afterColumns;
+
+    private Map<String, Object> before;
+    private Map<String, Object> after;
+
+    private String primaryKey;
+    private Date timestamp;
+
 
     public long getTableId() {
         return tableId;
@@ -250,6 +264,54 @@ public class EventData implements ObjectData, Serializable {
 
     public void setWithoutSchema(boolean withoutSchema) {
         this.withoutSchema = withoutSchema;
+    }
+
+    public List<CanalEntry.Column> getBeforeColumns() {
+        return beforeColumns;
+    }
+
+    public void setBeforeColumns(List<CanalEntry.Column> beforeColumns) {
+        this.beforeColumns = beforeColumns;
+    }
+
+    public List<CanalEntry.Column> getAfterColumns() {
+        return afterColumns;
+    }
+
+    public void setAfterColumns(List<CanalEntry.Column> afterColumns) {
+        this.afterColumns = afterColumns;
+    }
+
+    public Map<String, Object> getBefore() {
+        return before;
+    }
+
+    public void setBefore(Map<String, Object> before) {
+        this.before = before;
+    }
+
+    public Map<String, Object> getAfter() {
+        return after;
+    }
+
+    public void setAfter(Map<String, Object> after) {
+        this.after = after;
+    }
+
+    public String getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
     // ======================== helper method =================

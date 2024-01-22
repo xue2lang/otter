@@ -256,6 +256,7 @@
 					<message>必须填写${displayName}</message>
 				</fm-validators:required-validator>
 			</field>
+			<field name="groupName" displayName="组名"></field>
 			<field name="encode" displayName="数据库编码">
 				<fm-validators:required-validator>
 					<message>必须选择${displayName}</message>
